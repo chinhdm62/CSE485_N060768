@@ -16,7 +16,7 @@
     <link href="assets/bootstrap/bootstrap.min.css" rel="stylesheet">
     <script src="assets/bootstrap/bootstrap.min.js"></script>
     
-    <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="assets/stylesheets/main.css">
 </head>
 
 <body>

@@ -1,69 +1,19 @@
 <?php
+// used to get mysql database connection
+class Database {
+    private static $conn = NULl;
 
-class Connection {
-    private $host, $username, $password, $database;
-
-    public function __construct($database) {
-        $this->host = "localhost";
-        $this->username = "root";
-        $this->password = "";
-        $this->database = $database;
+    public static function getConnection() {
+        if (!isset(self::$conn)) {
+            try {
+                self::$conn = mysqli_connect('localhost','root', '', 'searchjobit');
+                mysqli_set_charset(Database::getConnection(), 'utf8');
+            } catch (Exception $ex) {
+                die($ex->getMessage());
+            }
+        }
+        return self::$conn;
     }
-
-    public function getHost() {
-        return $this->host;
-    }
-
-    public function getUsername() {
-        return $this->username;
-    }
-
-    public function getPassword() {
-        return $this->password;
-    }
-
-    public function getDatabase() {
-        return $this->database;
-    }
-
-    public function settHost($host) {
-        $this->host = $host;
-    }
-
-    public function setUsername($username) {
-        $this->username = $username;
-    }
-
-    public function settPassword($password) {
-        $this->password = $password;
-    }
-
-    public function settDatabase($database) {
-        $this->database = $database;
-    }
-
-    public function getConnection() {
-        return mysqli_connect($this->getHost(), $this->getUsername(), $this->getPassword(), $this->getDatabase());
-    }
-
-    public function closeConnetion() {
-        return mysqli_close($this->getConnection());
-    }
-}
-
-class Query {
-    private $conn;
-
-    public function __construct() {
-        $this->conn = new Connetion();
-    }
-
-    public function executeQuery($sql) {
-        $result = mysqli_query($this->conn->getConnection(), $sql);
-        $this->conn->closeConnetion();
-        return $result;
-    }
-
 }
 
 ?>
