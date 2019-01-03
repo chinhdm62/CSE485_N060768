@@ -1,20 +1,30 @@
 <?php
 
 require_once('controllers/c_base.php');
-require_once('models/m_showjob.php');
+require_once('models/m_v_show_job.php');
+require_once('models/m_job_posting.php');
 
 class PagesController extends BaseController {
+
+    public $data = array();
 
     function __construct() {
         $this->folder = 'pages';
     }
 
     public function home() {
-        $sql = "SELECT * from v_showjob";
+        // $dataPost = ShowJob::getAllData("SELECT * from v_showjob");
+        // print_r($dataPost);
+        $this->data['posts'] = ShowJob::getAllData("SELECT * from v_showjob");
+        $this->render('home', $this->data);
+    }
 
-        $dataJobPosting = ShowJob::getAllData($sql);
-        $data = array('posts' => $dataJobPosting);
-        $this->render('home', $data);
+    public function detail() {
+        $idEmp = $_GET['idEmp'];
+
+        $this->data['detail_job'] = JobPosting::getContentJob($idEmp);
+
+        $this->render('detail_job', $this->data);
     }
 
     public function error() {
