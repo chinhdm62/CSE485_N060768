@@ -22,7 +22,7 @@ class RegisterController extends BaseController {
     }
 
     public function check() {
-        $data = array('posts' => ShowJob::getAllData());
+        $data = array('posts' => ShowJob::getData_2());
 
         if ($this->level == "Select Menu") {
             $data['err_select_level'] = "Bạn chưa chọn user role";
@@ -42,13 +42,29 @@ class RegisterController extends BaseController {
                     $hash = password_hash($this->password, PASSWORD_DEFAULT, $options);
 
                     // Chèn dữ liệu vào
-                    $sql = "INSERT INTO users(username,password,email, level, status) VALUES ('$this->username', '$hash', '$this->email', '$this->level', '1')";
+                    $sql = "INSERT INTO users(username,password,email, level, status) VALUES ('$this->username', '$hash', '$this->email', '$this->level', '0')";
+
                     if (Users::executeQuery($sql)) {
-                        echo "
-                        <script>
-                            alert('Đăng ký thành công');
-                        </script>
-                        ";
+                        include("assets/libraries/PHPMailer/PHPMailer.php");                   // Passing `true` enables exceptions
+
+                        try {
+                            $mail->addAddress($this->email);
+                            $mail->isHTML(true);                                 // Set email format to HTML
+                            $mail->Subject = 'Email Activate Account';
+                            $mail->Body    = "Click on the link to activate your account: " . "http://localhost:8888/CSE485_N060768/N060768/Sources/confirmation.php?user=$this->username";
+                            
+                            $mail->send();
+                            
+                            echo "<script>alert('mail kích hoạt đã được gửi vào mail để kích hoạt');</script>";
+                            header("location: index.php");
+                            exit();
+
+                        } catch (Exception $e) {
+                            echo "<script>alert('Không thể gửi email kích hoạt!, Mời đăng ký lại');</script>";
+                            header("location: index.php");
+                            exit();
+                        }
+
                     } else {
                         echo "
                         <script>

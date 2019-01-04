@@ -68,7 +68,7 @@
                 <h2>Quản lý bài đăng</h2> 
                 <input class="form-control" id="myInput" type="text" placeholder="Search..">
                 <br>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" id="dataTables-example">
                     <thead>
                         <tr>
                             <th>STT</th>
@@ -102,7 +102,6 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
         <!-- /Quản lý bài đăng -->
         

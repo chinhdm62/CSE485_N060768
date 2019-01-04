@@ -18,7 +18,6 @@ class Users {
     }   
 
     public static function executeQuery($sql) {
-        $result = NULL;
         try {
             $result = mysqli_query(Database::getConnection(), $sql);
             return $result;

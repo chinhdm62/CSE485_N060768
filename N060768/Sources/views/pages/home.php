@@ -34,7 +34,9 @@
                 <div id="home" class="container tab-pane active"><br>
                     <h4>Công Việc Thực Tập - MỚI</h4>
                     <hr>
-                    <?php if (isset($posts)) {
+                    <?php 
+                    if (isset($posts)) {
+                        
                         foreach ($posts as $post) {
                             echo "
                             <div class='list-group'>
@@ -57,13 +59,61 @@
                             <hr>
                             ";
                         }
-                    }?>
+
+                        $display = 5;
+                        $sum_news = count($count);
+                        $sum_page = ceil($sum_news/$display);
+                        if ($sum_page > 1) {
+                            if (isset($_GET['begin'])) $pos = $_GET['begin'];
+                            else $pos = 0;
+                            $current = ($pos/$display) + 1;
+
+                            $pre = $pos-$display;
+                            $next = $pos+$display;
+                            if ($pre < 0) {
+                                $pre = 0;
+                                echo "
+                                <ul class='pagination justify-content-center'>
+                                <li class='page-item'><a class='page-link' href='index.php?begin=$pre'>Previous</a></li>
+                                ";
+                            } else {
+                                echo "
+                                <ul class='pagination justify-content-center'>
+                                <li class='page-item'><a class='page-link' href='index.php?begin=$pre'>Previous</a></li>
+                                ";
+                            }
+                            for ($page=1; $page<=$sum_page;$page++) {
+                                $begin = ($page-1)*$display;
+                                if ($page == $current) {
+                                    echo "
+                                    <li class='page-item'><a class='page-link text-danger' href='index.php?begin=$begin'>$page</a></li>
+                                    ";
+                                } else {
+                                    echo "
+                                    <li class='page-item'><a class='page-link' href='index.php?begin=$begin'>$page</a></li>
+                                    ";
+                                }
+                            }
+
+                            if ($next > $sum_news) {
+                                $next = $sum_news-1;
+                                echo "<li class='page-item'><a class='page-link' href='index.php?begin=$next'>Next</a></li>";
+                            } else {
+                                echo "<li class='page-item'><a class='page-link' href='index.php?begin=$next'>Next</a></li>";
+                            }
+
+                            echo "</ul>";
+                        }
+                    }
+                    ?>
                 </div>
                 <div id="menu1" class="container tab-pane fade"><br>
                 <h4>Công Việc Thực Tập - HOT</h4>
                     <hr>
-                    <?php if (isset($posts)) {
-                        foreach ($posts as $post) {
+                    <?php 
+                    if (isset($posts_hot)) {
+                        
+                        foreach ($posts_hot as $post) {
                             echo "
                             <div class='list-group'>
                                 <a href='index.php?controller=pages&action=detail&idEmp=$post->id' class='list-group-item list-group-item-action list-group-item-info d-flex justify-content-between align-items-center' onclick='detail($post->id, $post->num_click)'>$post->title
@@ -85,7 +135,53 @@
                             <hr>
                             ";
                         }
-                    }?>
+
+                        $display = 5;
+                        $sum_news = count($count);
+                        $sum_page = ceil($sum_news/$display);
+                        if ($sum_page > 1) {
+                            if (isset($_GET['begin'])) $pos = $_GET['begin'];
+                            else $pos = 0;
+                            $current = ($pos/$display) + 1;
+
+                            $pre = $pos-$display;
+                            $next = $pos+$display;
+                            if ($pre < 0) {
+                                $pre = 0;
+                                echo "
+                                <ul class='pagination justify-content-center'>
+                                <li class='page-item'><a class='page-link' href='index.php?begin=$pre'>Previous</a></li>
+                                ";
+                            } else {
+                                echo "
+                                <ul class='pagination justify-content-center'>
+                                <li class='page-item'><a class='page-link' href='index.php?begin=$pre'>Previous</a></li>
+                                ";
+                            }
+                            for ($page=1; $page<=$sum_page;$page++) {
+                                $begin = ($page-1)*$display;
+                                if ($page == $current) {
+                                    echo "
+                                    <li class='page-item'><a class='page-link text-danger' href='index.php?begin=$begin'>$page</a></li>
+                                    ";
+                                } else {
+                                    echo "
+                                    <li class='page-item'><a class='page-link' href='index.php?begin=$begin'>$page</a></li>
+                                    ";
+                                }
+                            }
+
+                            if ($next > $sum_news) {
+                                $next = $sum_news-1;
+                                echo "<li class='page-item'><a class='page-link' href='index.php?begin=$next'>Next</a></li>";
+                            } else {
+                                echo "<li class='page-item'><a class='page-link' href='index.php?begin=$next'>Next</a></li>";
+                            }
+
+                            echo "</ul>";
+                        }
+                    }
+                    ?>
                 </div>
             </div>
         </div>

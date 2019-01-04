@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse hide" id="navb">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="./"><i class="fa fa-fw fa-home"></i></a>
+                <a class="nav-link" href="./"><i class="fas fa-home"></i></a>
             </li>
             <?php 
                 if (isset($_SESSION['username'], $_SESSION['level'])) {

@@ -15,7 +15,7 @@ class JobPosting {
     }
 
     public static function managerJost() {
-        $sql = "SELECT title, time_post, deadline from v_show_job";
+        $sql = "SELECT title, time_post, deadline from job_posting";
         $data = array();
         try {
             $result = mysqli_query(Database::getConnection(), $sql);

@@ -58,12 +58,21 @@ $(document).ready(function(){
         });
     });
 
-    function detail(id, num_click) {
-        var newNum = num_click + 1;
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "num_click.php?id="+id+"&num_click="+newNum, true);
-        xhttp.send();
-    }
+    // function detail(id, num_click) {
+    //     var newNum = num_click + 1;
+    //     var xhttp = new XMLHttpRequest();
+    //     xhttp.open("POST", "num_click.php?id="+id+"&num_click="+newNum, true);
+    //     xhttp.send();
+    // }
 
-    $('#datatable').DataTable();
+    $('#dataTables-example').DataTable({
+        responsive: true
+    });
 });
+
+function detail(id, num_click) {
+    var newNum = num_click + 1;
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "num_click.php?id="+id+"&num_click="+newNum, true);
+    xhttp.send();
+}

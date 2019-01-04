@@ -17,7 +17,7 @@ class LoginController extends BaseController {
     public function check() {
         $sql = "SELECT * from users where username='$this->username'";
         $dataUsers = Users::getData($sql);
-        $data = array('posts' => ShowJob::getAllData());
+        $data = array('posts' => ShowJob::getData_2());
         if (!empty($dataUsers)) {
             $level = $dataUsers["level"];
             $status = $dataUsers['status'];
@@ -36,7 +36,7 @@ class LoginController extends BaseController {
                     }
                     
                 } else if ($level == 3 && $this->password == $dataUsers["password"]) {
-                    header('location:admin/production/manager.php');
+                    header('location:admin/production/index.php');
                     exit();
                 } else {
                     $data['err_login'] = "Tên tài khoản hoặc mật khẩu không chính xác!";

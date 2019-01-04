@@ -15,7 +15,13 @@ class PagesController extends BaseController {
     public function home() {
         // $dataPost = ShowJob::getAllData("SELECT * from v_showjob");
         // print_r($dataPost);
-        $this->data['posts'] = ShowJob::getAllData("SELECT * from v_showjob");
+        if (isset($_GET['begin'])) $pos = $_GET['begin'];
+        else $pos = 0;
+        $dis = 5;
+
+        $this->data['posts'] = ShowJob::getData($pos, $dis);
+        $this->data['count'] = ShowJob::getData_2();
+        $this->data['posts_hot'] = ShowJob::getData_3($pos, $dis);
         $this->render('home', $this->data);
     }
 
